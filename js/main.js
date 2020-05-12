@@ -7,6 +7,7 @@ var msg = document.getElementById('msg')
 
 var weatherResultArray = []
 var geoResultArray = []
+var pixabayResultArray = []
 var displayData = new DisplayData(formElement)
 
 var app = new App(displayData)
@@ -30,9 +31,6 @@ formElement.addEventListener('submit', function (event) {
     msg.textContent = 'Please enter city.'
     msg.style.color = 'red'
   }
-
-
-  console.log(unitData)
 
   // Clearing the fields after submiting the form
   this.reset()
