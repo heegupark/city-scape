@@ -15,10 +15,11 @@ class App {
 
   handleWeatherDataError(error) {
     console.error(error)
+    this.displayData.displayWeatherData(null, null)
   }
 
   handleWeatherDataSuccess(data) {
-    this.displayData.displayWeatherData(data, this.unitData)
+    weatherResultArray = data
 
     this.lon = data.coord.lon
     this.lat = data.coord.lat
@@ -31,14 +32,14 @@ class App {
   }
 
   handleGeoDataSuccess(data) {
-    console.log(data)
-    // this.displayData.displaySchooleData(data, this.unitData)
+    geoResultArray = data
+
+    this.displayData.displayWeatherData(weatherResultArray, this.unitData)
+    this.displayData.displayGeoData(geoResultArray)
   }
 
   getAllData(cityName) {
     this.getWeatherData(cityName)
-    console.log(this.lon)
-    console.log(this.lat)
     // this.getGeoData(this.lon, this.lat)
   }
 
@@ -54,18 +55,33 @@ class App {
     })
   }
 
+  addZero(num) {
+    return num < 10 ? "0" + num : num.toString()
+  }
+
+  convertDate(date) {
+    var year = this.addZero(date.getFullYear())
+    var month = this.addZero(date.getMonth() + 1)
+    var day = this.addZero(date.getDate())
+
+    return year + month + day
+  }
+
   getGeoData(lon, lat) {
     var url = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson'
     var lat = '&latitude=' + lat
     var lon = '&longitude=' + lon
     var radius = '&maxradiuskm=' + '200'
-    var startTime = '&starttime=' + '20200101'
-    var endTime = '&endtime=' + '20200511'
+    var startDate = new Date(new Date().getTime() - (100 * 24 * 60 * 60 * 1000))
+    var endDate = new Date()
+    var startTime = '&starttime=' + this.convertDate(startDate)
+    var endTime = '&endtime=' + this.convertDate(endDate)
+    var limit = '&limit=' + 10
     var appID = 'b534716a'
     var appKey = '13140920cddf63a34f1865f5ee32d47d'
     $.ajax({
       method: 'GET',
-      url: url + lat + lon + radius + startTime + endTime,
+      url: url + lat + lon + radius + startTime + endTime + limit,
       success: this.handleGeoDataSuccess,
       error: this.handleGeoDataError
     })

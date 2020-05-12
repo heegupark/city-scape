@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>City-verything</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
   <main class="container">
     <div class="row">
@@ -25,13 +28,13 @@
         <input type="text" name="city-input" id="city-input" placeholder="Type your city here">
       </div>
       <div class="col-1">
-        <input type="radio" name="unit-radio" id="unit-radio-metric" value="Metric" checked>
+        <input type="radio" name="unit-radio" id="unit-radio-metric" value="Metric">
         <label id="metric" for="unit-radio-celsius">
           &#8451;
         </label>
       </div>
       <div class="col-1">
-        <input type="radio" name="unit-radio" id="unit-radio-imperial" value="Imperial">
+        <input type="radio" name="unit-radio" id="unit-radio-imperial" value="Imperial" checked>
         <label id="imperial" for="unit-radio-fahrenheit">
           &#8457;
         </label>
@@ -48,28 +51,34 @@
     </form>
     <div class="row">
       <div class="col">
+        <div id="msg"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
         <div class="line"></div>
       </div>
     </div>
     <div class="row">
-      <div  id="weather-data-board" class="col">
-
+      <div id="weather-data-board" class="col">
+        <img src="img" alt="">
       </div>
     </div>
-    <div id="school-data-board" class="row">
+    <div class="row">
+      <div id="geo-data-board" class="col">
 
-    </div>
-    <div id="geo-data-board" class="row">
-
+      </div>
     </div>
   </main>
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
   <script src="js/display-data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
