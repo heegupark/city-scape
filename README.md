@@ -32,12 +32,12 @@
 ## Screen shot
 [Desktop - Chrome browser]
 
-![Artistic Flower Memory Match](https://github.com/heegupark/memory_match/blob/master/omm-ss-001.gif)
+![City-verything](https://github.com/heegupark/api-hackathon/blob/master/city-ss-001.gif)
 
 [iPhone 6/7/8 - Portrait]
 
-![Artistic Flower Memory Match](https://github.com/heegupark/memory_match/blob/master/omm-ss-002.gif)
+![City-verything](https://github.com/heegupark/api-hackathon/blob/master/city-ss-002.gif)
 
 [iPhone 6/7/8 - Landscape]
 
-![Artistic Flower Memory Match](https://github.com/heegupark/memory_match/blob/master/omm-ss-003.gif)
+![City-verything](https://github.com/heegupark/api-hackathon/blob/master/city-ss-003.gif)
