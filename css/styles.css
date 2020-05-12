@@ -1,28 +1,40 @@
+body {
+  font-family: 'Baloo Bhaina 2', cursive;
+  background-color: black;
+}
+
 h1 {
+  color: white;
   text-align: center;
 }
 
+.city-bg {
+  background-color: black;
+  height: 200px;
+}
+
+.city-h1 {
+  color: white;
+}
+
+.city-p {
+  color: #888888
+}
 img {
   border-radius: 2px;
 }
 
-.city-title {
+p {
+  text-align: center;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+.title {
   padding-left: 30px;
 }
 
-.line {
-  border: 1px solid #888888;
-  margin: 10px auto;
-}
-
-.bolder {
-  font-weight: bolder;
-}
-
-.gold {
-  color: gold;
-}
-
-.goldenrod {
-  color: goldenrod;
+.carousel-btn {
+  background-color: rgb(0,0,0,0.1);
+  border-radius: 3px;
 }
