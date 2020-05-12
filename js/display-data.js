@@ -26,7 +26,7 @@ class DisplayData {
       el.classList.add(classStr)
     }
 
-    if(text) {
+    if (text) {
       var p = document.createElement('p')
       p.textContent = text
       el.append(p)
@@ -52,20 +52,69 @@ class DisplayData {
 
     var divTitleRow = this.makeElement('div', 'row', '')
 
-    var weatherTitle = data.name + '(' + data.sys.country + ')' + "'" + 's weather information'
-    var divTitleCol = this.makeElement('div', 'col', weatherTitle)
+    console.log(data.length)
+    if(data) {
+      var weatherTitle = data.name + '(' + data.sys.country + ')' + "'" + 's weather information'
+      var divTitleCol = this.makeElement('div', 'col', weatherTitle)
+      divTitleRow.append(divTitleCol)
+
+      var tempDataStr = data.main.temp + ' ' + this.switchTempbyUnit(unitData)
+      var divRow1 = this.makeRow('Current Tempature:', tempDataStr)
+
+      var humidDataStr = data.main.humidity + ' %'
+      var divRow2 = this.makeRow('Current Humidity:', humidDataStr)
+
+      var windSpeed = data.wind.speed + ' ' + this.switchWindbyUnit(unitData)
+      var divRow3 = this.makeRow('Current Wind Speed:', windSpeed)
+
+      var weatherDesc = data.weather[0].main
+      var divRow4 = this.makeRow('Weather:', weatherDesc)
+      weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)
+    } else {
+      var divRow1 = this.makeRow('Result:', 'No city is found!')
+      weatherDataBoard.append(divRow1)
+    }
+
+  }
+
+  displayGeoData(data) {
+    var geoDataBoard = document.getElementById('geo-data-board')
+
+    while (geoDataBoard.firstChild) {
+      geoDataBoard.firstChild.remove()
+    }
+
+    var divTitleRow = this.makeElement('div', 'row', '')
+
+    var geoTitle = 'Earthquake within a radius of 200km and within 100 days'
+    var divTitleCol = this.makeElement('div', 'col', geoTitle)
     divTitleRow.append(divTitleCol)
 
-    var tempDataStr = data.main.temp + ' ' + this.switchTempbyUnit(unitData)
-    var divRow1 = this.makeRow('Current Tempature:', tempDataStr)
+    console.log(data.features.length)
+    if (data.features.length > 0) {
+      var magDataStr = data.features[0].properties.mag
+      var divRow1 = this.makeRow('Maginitude:', magDataStr)
 
-    var humidDataStr = data.main.humidity + ' %'
-    var divRow2 = this.makeRow('Current Humidity:', humidDataStr)
+      var dateDataStr = data.features[0].properties.time
+      var divRow2 = this.makeRow('When:', this.switchDateFormatToPST(dateDataStr))
 
-    var windSpeed = data.wind.speed + ' ' + this.switchWindbyUnit(unitData)
-    var divRow3 = this.makeRow('Current Wind Speed:', windSpeed)
+      var originStr = data.features[0].properties.place
+      var divRow3 = this.makeRow('Origin:', originStr)
 
-    weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3)
+      // var weatherDesc = data.weather[0].main
+      // var divRow4 = this.makeRow('Weather:', weatherDesc)
+      geoDataBoard.append(divTitleRow, divRow1, divRow2, divRow3)
+
+    } else {
+      var originStr = 'No earthquake!'
+      var divRow1 = this.makeRow('Result:', originStr)
+      geoDataBoard.append(divTitleRow, divRow1)
+    }
+  }
+
+  switchDateFormatToPST(date) {
+    console.log(date)
+    return new Date(date * 1000)
   }
 
   switchTempbyUnit(unitData) {
