@@ -5,12 +5,16 @@ class App {
     this.unitData = unitData
     this.lat = lat
     this.lon = lon
+    this.displayAll = this.displayAll.bind(this)
     this.getWeatherData = this.getWeatherData.bind(this)
     this.getGeoData = this.getGeoData.bind(this)
+    this.getPixabayData = this.getPixabayData.bind(this)
     this.handleWeatherDataError = this.handleWeatherDataError.bind(this)
     this.handleWeatherDataSuccess = this.handleWeatherDataSuccess.bind(this)
     this.handleGeoDataError = this.handleGeoDataError.bind(this)
     this.handleGeoDataSuccess = this.handleGeoDataSuccess.bind(this)
+    this.handlePixabayDataError = this.handlePixabayDataError.bind(this)
+    this.handlePixabayDataSuccess = this.handlePixabayDataSuccess.bind(this)
   }
 
   handleWeatherDataError(error) {
@@ -21,10 +25,13 @@ class App {
   handleWeatherDataSuccess(data) {
     weatherResultArray = data
 
-    this.lon = data.coord.lon
-    this.lat = data.coord.lat
+    console.log(weatherResultArray)
+    this.lon = weatherResultArray.coord.lon
+    this.lat = weatherResultArray.coord.lat
+    this.weather = weatherResultArray.weather[0].main
 
-    this.getGeoData(this.lon, this.lat)
+    console.log(this.weather)
+    this.getPixabayData(this.weather)
   }
 
   handleGeoDataError(error) {
@@ -33,14 +40,39 @@ class App {
 
   handleGeoDataSuccess(data) {
     geoResultArray = data
+    this.displayAll()
+  }
 
+  handlePixabayDataError(error) {
+    console.error(error)
+  }
+
+  handlePixabayDataSuccess(data) {
+    pixabayResultArray = data
+
+    this.getGeoData(this.lon, this.lat)
+  }
+
+  displayAll() {
     this.displayData.displayWeatherData(weatherResultArray, this.unitData)
     this.displayData.displayGeoData(geoResultArray)
+    this.displayData.displayPixabayImage(pixabayResultArray)
   }
 
   getAllData(cityName) {
     this.getWeatherData(cityName)
-    // this.getGeoData(this.lon, this.lat)
+  }
+
+  getPixabayData(weather) {
+    var url = 'https://pixabay.com/api/'
+    var apiKey = '13390108-bda3baa35dd70ef6d86c74840'
+    var q = '&q=' + weather + '+weather'
+    $.ajax({
+      method: 'GET',
+      url: url + '?key=' + apiKey + q + '&image_type=photo',
+      success: this.handlePixabayDataSuccess,
+      error: this.handlePixabayDataError
+    })
   }
 
   getWeatherData(cityName) {
@@ -53,18 +85,6 @@ class App {
       success: this.handleWeatherDataSuccess,
       error: this.handleWeatherDataError
     })
-  }
-
-  addZero(num) {
-    return num < 10 ? "0" + num : num.toString()
-  }
-
-  convertDate(date) {
-    var year = this.addZero(date.getFullYear())
-    var month = this.addZero(date.getMonth() + 1)
-    var day = this.addZero(date.getDate())
-
-    return year + month + day
   }
 
   getGeoData(lon, lat) {
@@ -85,6 +105,18 @@ class App {
       success: this.handleGeoDataSuccess,
       error: this.handleGeoDataError
     })
+  }
+
+  addZero(num) {
+    return num < 10 ? "0" + num : num.toString()
+  }
+
+  convertDate(date) {
+    var year = this.addZero(date.getFullYear())
+    var month = this.addZero(date.getMonth() + 1)
+    var day = this.addZero(date.getDate())
+
+    return year + month + day
   }
 
   start(cityName, unitData) {

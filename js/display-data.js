@@ -52,7 +52,6 @@ class DisplayData {
 
     var divTitleRow = this.makeElement('div', 'row', '')
 
-    console.log(data.length)
     if(data) {
       var weatherTitle = data.name + '(' + data.sys.country + ')' + "'" + 's weather information'
       var divTitleCol = this.makeElement('div', 'col', weatherTitle)
@@ -71,7 +70,7 @@ class DisplayData {
       var divRow4 = this.makeRow('Weather:', weatherDesc)
       weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)
     } else {
-      var divRow1 = this.makeRow('Result:', 'No city is found!')
+      var divRow1 = this.makeRow('Result:', 'Failed to load data!')
       weatherDataBoard.append(divRow1)
     }
 
@@ -90,8 +89,7 @@ class DisplayData {
     var divTitleCol = this.makeElement('div', 'col', geoTitle)
     divTitleRow.append(divTitleCol)
 
-    console.log(data.features.length)
-    if (data.features.length > 0) {
+    if (data.features[0]) {
       var magDataStr = data.features[0].properties.mag
       var divRow1 = this.makeRow('Maginitude:', magDataStr)
 
@@ -109,6 +107,22 @@ class DisplayData {
       var originStr = 'No earthquake!'
       var divRow1 = this.makeRow('Result:', originStr)
       geoDataBoard.append(divTitleRow, divRow1)
+    }
+  }
+
+  displayPixabayImage(data) {
+    var imgBoard = document.getElementById('img-data-board')
+
+    while (imgBoard.firstChild) {
+      imgBoard.firstChild.remove()
+    }
+
+    if(data) {
+      var img = document.createElement('img')
+      var num = Math.floor(Math.random() * data.hits.length)
+      console.log(num)
+      img.src = data.hits[num].webformatURL
+      imgBoard.append(img)
     }
   }
 
