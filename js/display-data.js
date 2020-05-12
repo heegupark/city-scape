@@ -29,7 +29,7 @@ class DisplayData {
 
   makeRow(title, data, faElement1, faElement2) {
     var divRow = this.makeElement('div', 'row', '', '',  '')
-    var divName = this.makeElement('div', 'col', '', '', title)
+    var divName = this.makeElement('div', 'col-4', '', '', title)
     var divContents = this.makeElement('div', 'col', '', '', data)
 
     if (faElement1 && faElement2) {
@@ -57,7 +57,7 @@ class DisplayData {
       var divTitleCol = this.makeElement('div', 'h1', 'bolder', 'goldenrod', cityName)
       divTitleRow.append(divTitleCol)
     }
-    cityBoard.classList.add('card')
+    cityBoard.classList.add('card', 'border', 'border-dark')
     cityBoard.append(divTitleRow)
   }
 
@@ -71,8 +71,8 @@ class DisplayData {
     var divTitleRow = this.makeElement('div', 'row', '', '', '')
 
     if(data) {
-      var weatherTitle = 'Weather information'
-      var divTitleCol = this.makeElement('div', 'col', 'bolder', 'goldenrod', weatherTitle)
+      var weatherTitle = 'Weather'
+      var divTitleCol = this.makeElement('div', 'h2', 'title', '', weatherTitle)
       divTitleRow.append(divTitleCol)
 
       var tempDataStr = data.main.temp + ' ' + this.switchTempbyUnit(unitData)
@@ -86,11 +86,11 @@ class DisplayData {
 
       var weatherDesc = data.weather[0].main
       var divRow4 = this.makeRow('', weatherDesc, 'fas', 'fa-cloud')
-      weatherDataBoard.classList.add('card')
+      weatherDataBoard.classList.add('card', 'border', 'border-dark')
       weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)
-    } else {
-      var divRow1 = this.makeRow('Result:', 'Failed to load data!')
-      weatherDataBoard.classList.add('card')
+     } else {
+      var divRow1 = this.makeRow('Result', 'Failed to load data!')
+      weatherDataBoard.classList.add('card', 'border', 'border-dark')
       weatherDataBoard.append(divRow1)
     }
   }
@@ -105,27 +105,33 @@ class DisplayData {
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
 
     var geoTitle = 'Earthquake'
-    var divTitleCol = this.makeElement('div', 'col', 'bolder', 'goldenrod', geoTitle)
+    var divTitleCol = this.makeElement('div', 'h2', 'title', '', geoTitle)
 
     divTitleRow.append(divTitleCol)
 
     if (data.features[0]) {
-      var magDataStr = data.features[0].properties.mag
-      var divRow1 = this.makeRow('Maginitude:', magDataStr)
+      var objArr = []
+      for (var i = 0; i < data.features.length; i++) {
+        var div = this.makeElement('div','col','','','')
+        var magDataStr = data.features[i].properties.mag
+        var divRow1 = this.makeRow('Maginitude', magDataStr)
 
-      var dateDataStr = data.features[0].properties.time
-      var divRow2 = this.makeRow('When:', this.switchDateFormatToPST(dateDataStr))
+        var dateDataStr = data.features[i].properties.time
+        var divRow2 = this.makeRow('When', this.switchDateFormatToPST(dateDataStr))
 
-      var originStr = data.features[0].properties.place
-      var divRow3 = this.makeRow('Origin:', originStr)
+        var originStr = data.features[i].properties.place
+        var divRow3 = this.makeRow('Origin', originStr)
+        div.append(divRow1, divRow2, divRow3)
+        objArr.push(div)
+      }
 
-      geoDataBoard.classList.add('card')
-      geoDataBoard.append(divTitleRow, divRow1, divRow2, divRow3)
+      geoDataBoard.classList.add('card', 'border', 'border-dark')
+      geoDataBoard.append(divTitleRow, this.carouselContents(objArr, 'carouselContentControl', 'text'))
 
     } else {
       var originStr = 'No earthquake!'
-      var divRow1 = this.makeRow('Result:', originStr)
-      geoDataBoard.classList.add('card')
+      var divRow1 = this.makeRow('Result', originStr)
+      geoDataBoard.classList.add('card', 'border', 'border-dark')
       geoDataBoard.append(divTitleRow, divRow1)
     }
   }
@@ -139,18 +145,18 @@ class DisplayData {
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
 
-    var imgTitle = 'City photo'
-    var divTitleCol = this.makeElement('div', 'col', 'bolder', 'goldenrod', imgTitle)
+    var imgTitle = 'City photos'
+    var divTitleCol = this.makeElement('div', 'h2', 'title', '', imgTitle)
 
     divTitleRow.append(divTitleCol)
-    imgBoard.classList.add('card')
+    imgBoard.classList.add('card', 'border', 'border-dark')
 
     if(data && data.total > 0) {
       var imgArr = []
       for(var i=0;i<data.hits.length;i++) {
         imgArr.push(data.hits[i].webformatURL)
       }
-      imgBoard.append(divTitleRow, this.carouselImages(imgArr))
+      imgBoard.append(divTitleRow, this.carouselContents(imgArr, 'carouselImageControl', 'img'))
     } else {
       var divTextRow = this.makeElement('div', 'row', '', '', '', '', '')
       var text = 'Failed to find relevant images'
@@ -160,41 +166,46 @@ class DisplayData {
     }
   }
 
-  carouselImages(imgArr) {
-    var id = 'caourselControl'
-
+  carouselContents(arr, id, category) {
     var divControl = this.makeElement('div', 'carousel', 'slide', '', '')
     divControl.id = id
     divControl.setAttribute('data-ride', 'carousel')
 
     var divInner = this.makeElement('div', 'carousel-inner', '', '', '')
 
-    for(var i=0;i<imgArr.length;i++) {
-      if(i===0) {
+    for (var i = 0; i < arr.length; i++) {
+      if (i === 0) {
         var divItem = this.makeElement('div', 'carousel-item', 'active', '', '')
       } else {
         var divItem = this.makeElement('div', 'carousel-item', '', '', '')
       }
-      var imgObj = this.makeElement('img', 'd-block', 'w-100', '', '')
-      imgObj.src = imgArr[i]
-      imgObj.classList.add('img-responsive')
-      imgObj.style.width = '100%'
-      imgObj.style.marginBottom = '10px'
 
-      divItem.append(imgObj)
+      if (category === 'text') {
+        var obj = this.makeElement('div', 'd-block', 'w-100', '', '')
+        obj.append(arr[i])
+      } else if (category === 'img') {
+        var obj = this.makeElement('img', 'd-block', 'w-100', '', '')
+        obj.src = arr[i]
+      }
+
+      obj.style.marginBottom = '10px'
+
+      divItem.append(obj)
       divInner.append(divItem)
     }
 
-    var prev = this.carouselBtn('prev', id)
-    var next = this.carouselBtn('next', id)
+    if (arr.length > 1) {
+      var prev = this.carouselBtn('prev', id)
+      var next = this.carouselBtn('next', id)
 
-    divControl.append(divInner, prev, next)
+      divControl.append(divInner, prev, next)
+    }
 
     return divControl
   }
 
   carouselBtn(string, id) {
-    var object = this.makeElement('a', 'carousel-control-' + string, '', '', '')
+    var object = this.makeElement('a', 'carousel-control-' + string, 'carousel-btn', '', '')
     object.href = '#' + id
     object.setAttribute('role', 'button')
     object.setAttribute('data-slide', string)
@@ -207,6 +218,46 @@ class DisplayData {
     object.append(objectSpan1, objectSpan2)
 
     return object
+  }
+
+  displayInModal(title, body) {
+    var modal = this.makeElement('div', 'modal', '', '', '')
+    modal.setAttribute('tabindex', '-1')
+    modal.setAttribute('role', 'dialog')
+
+    var modalDiag = this.makeElement('div', 'modal-dialog', '', '', '')
+    modalDiag.setAttribute('role', 'document')
+
+    var modalContent = this.makeElement('div', 'modal-content', '', '', '')
+
+    var modalHeader = this.makeElement('div', 'modal-header', '', '', '')
+
+    var modalTitle = this.makeElement('h5', 'modal-title', '', '', '')
+    modalTitle.textContent = title
+
+    var closeBtn = this.makeElement('button', 'close', 'btn', 'btn-outline-dark', '')
+    closeBtn.setAttribute('type', 'button')
+    closeBtn.setAttribute('data-dismiss', 'modal')
+    closeBtn.setAttribute('aria-label', 'Close')
+
+    var closeSpan = document.createElement('span')
+    closeSpan.setAttribute('aria-hidden', 'true')
+    closeSpan.textContent = '&times;'
+    closeBtn.append(closeSpan)
+
+    modalHeader.append(modalTitle, closeBtn)
+
+    var modalbody = this.makeElement('div', 'modal-body', '', '', '')
+    var p = document.createElement('p')
+    p.textContent = body
+    modalbody.append(p)
+
+    modalContent.append(modalHeader, modalbody)
+
+    modalDiag.append(modalContent)
+    modal.append(modalDiag)
+
+    return modal
   }
 
   switchDateFormatToPST(date) {

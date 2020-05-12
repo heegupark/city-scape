@@ -8,24 +8,26 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body id="body-element">
   <main class="container">
     <div class="row">
-      <div class="col">
-        <h1>City-verything</h1>
+      <div class="col jumbotron city-bg">
+        <h1 class="display-4 city-h1">City-verything</h1>
+        <p class="lead city-p">Search the information of a city!</p>
       </div>
     </div>
     <form id="form" class="row">
       <div class="input-group mb-1 mr-1 ml-1">
-        <input class="form-control" type="text" name="city-input" id="city-input" placeholder="Type your city here">
-        <button class="btn btn-outline-dark" id="city-button" type="submit">Submit</button>
+        <input class="form-control border-dark" type="text" name="city-input" id="city-input" placeholder="Type your city here">
+        <button class="btn btn-outline-light" id="city-button" type="submit">Submit</button>
       </div>
       <div class="input-group mb-1 mr-1 ml-1">
         <div class="col-sm input-group">
-          <span class="col-5 input-group-text">Unit</span>
+          <label class="col-5 input-group-text">Unit</label>
           <select name="unit-radio" class="custom-select" id="unit">
             <option id="metric" value="metric">&#8451;</option>
             <option id="imperial" value="imperial" selected>&#8457;</option>
@@ -57,7 +59,7 @@
       </div>
     </form>
     <div class="row mb-1">
-      <div id="city-data-board" class="city-title col-sm mr-1 ml-1">
+      <div id="city-data-board" class="title col-sm mr-1 ml-1">
       </div>
     </div>
     <div class="row mb-1">
