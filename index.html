@@ -18,60 +18,56 @@
         <h1>City-verything</h1>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <div class="line"></div>
-      </div>
-    </div>
     <form id="form" class="row">
-      <div class="col">
-        <input type="text" name="city-input" id="city-input" placeholder="Type your city here">
+      <div class="input-group mb-1 mr-1 ml-1">
+        <input class="form-control" type="text" name="city-input" id="city-input" placeholder="Type your city here">
+        <button class="btn btn-outline-dark" id="city-button" type="submit">Submit</button>
       </div>
-      <div class="col-1">
-        <input type="radio" name="unit-radio" id="unit-radio-metric" value="Metric">
-        <label id="metric" for="unit-radio-celsius">
-          &#8451;
-        </label>
-      </div>
-      <div class="col-1">
-        <input type="radio" name="unit-radio" id="unit-radio-imperial" value="Imperial" checked>
-        <label id="imperial" for="unit-radio-fahrenheit">
-          &#8457;
-        </label>
-      </div>
-      <div class="col-1">
-        <input type="radio" name="unit-radio" id="unit-radio-default" value="Default">
-        <label id="default" for="unit-radio-kelvin">
-          &#8490;
-        </label>
-      </div>
-      <div class="col">
-        <button id="city-button" type="submit">Submit</button>
+      <div class="input-group mb-1 mr-1 ml-1">
+        <div class="col-sm input-group">
+          <span class="col-5 input-group-text">Unit</span>
+          <select name="unit-radio" class="custom-select" id="unit">
+            <option id="metric" value="metric">&#8451;</option>
+            <option id="imperial" value="imperial" selected>&#8457;</option>
+            <option id="default" value="default">&#8490;</option>
+          </select>
+        </div>
+        <div class="col-sm input-group">
+          <span class="col-5 input-group-text">Radius</span>
+          <select name="unit-radio" class="custom-select" id="radius">
+            <option id="100km" value="100km" selected>100km</option>
+            <option id="200km" value="200km">200km</option>
+            <option id="300km" value="300km">300km</option>
+            <option id="400km" value="400km">400km</option>
+            <option id="500km" value="500km">500km</option>
+            <option id="600km" value="600km">600km</option>
+          </select>
+        </div>
+        <div class="col-sm input-group">
+          <span class="col-5 input-group-text">Period</span>
+          <select name="unit-radio" class="custom-select" id="period">
+            <option id="100days" value="100days" selected>100 days</option>
+            <option id="200days" value="200days">200 days</option>
+            <option id="300days" value="300days">300 days</option>
+            <option id="400days" value="400days">400 days</option>
+            <option id="500days" value="500days">500 days</option>
+            <option id="600days" value="600days">600 days</option>
+          </select>
+        </div>
       </div>
     </form>
-    <div class="row">
-      <div class="col">
-        <div id="msg"></div>
+    <div class="row mb-1">
+      <div id="city-data-board" class="city-title col-sm mr-1 ml-1">
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <div class="line"></div>
+    <div class="row mb-1">
+      <div id="weather-data-board" class="col-sm mb-1 mr-1 ml-1">
+      </div>
+      <div id="geo-data-board" class="col-sm mb-1 mr-1 ml-1">
       </div>
     </div>
-    <div class="row">
-      <div id="weather-data-board" class="col">
-        <img src="img" alt="">
-      </div>
-    </div>
-    <div class="row">
-      <div id="geo-data-board" class="col">
-
-      </div>
-    </div>
-    <div class="row">
-      <div id="img-data-board" class="col">
-
+    <div class="row mb-1">
+      <div id="img-data-board" class="col-sm mr-1 ml-1">
       </div>
     </div>
   </main>

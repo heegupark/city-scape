@@ -1,8 +1,9 @@
 class App {
-  constructor(displayData, formData, unitData, lon, lat) {
+  constructor(displayData, formData, unitData, city, lon, lat) {
     this.displayData = displayData
     this.formData = formData
     this.unitData = unitData
+    this.city = city
     this.lat = lat
     this.lon = lon
     this.displayAll = this.displayAll.bind(this)
@@ -25,13 +26,10 @@ class App {
   handleWeatherDataSuccess(data) {
     weatherResultArray = data
 
-    console.log(weatherResultArray)
     this.lon = weatherResultArray.coord.lon
     this.lat = weatherResultArray.coord.lat
     this.weather = weatherResultArray.weather[0].main
-
-    console.log(this.weather)
-    this.getPixabayData(this.weather)
+    this.getPixabayData(this.weather, this.city)
   }
 
   handleGeoDataError(error) {
@@ -54,6 +52,7 @@ class App {
   }
 
   displayAll() {
+    this.displayData.displayCityName(weatherResultArray)
     this.displayData.displayWeatherData(weatherResultArray, this.unitData)
     this.displayData.displayGeoData(geoResultArray)
     this.displayData.displayPixabayImage(pixabayResultArray)
@@ -63,10 +62,10 @@ class App {
     this.getWeatherData(cityName)
   }
 
-  getPixabayData(weather) {
+  getPixabayData(query1, query2) {
     var url = 'https://pixabay.com/api/'
     var apiKey = '13390108-bda3baa35dd70ef6d86c74840'
-    var q = '&q=' + weather + '+weather'
+    var q = '&q=' + query2
     $.ajax({
       method: 'GET',
       url: url + '?key=' + apiKey + q + '&image_type=photo',
@@ -120,6 +119,7 @@ class App {
   }
 
   start(cityName, unitData) {
+    this.city = cityName
     this.unitData = unitData
     this.getAllData(cityName)
   }
