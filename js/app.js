@@ -1,8 +1,10 @@
 class App {
-  constructor(displayData, formData, unitData, city, lon, lat) {
+  constructor(displayData, formData, unitData, radiusData, periodData, city, lon, lat) {
     this.displayData = displayData
     this.formData = formData
     this.unitData = unitData
+    this.radiusData = radiusData
+    this.periodData = periodData
     this.city = city
     this.lat = lat
     this.lon = lon
@@ -90,8 +92,8 @@ class App {
     var url = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson'
     var lat = '&latitude=' + lat
     var lon = '&longitude=' + lon
-    var radius = '&maxradiuskm=' + '200'
-    var startDate = new Date(new Date().getTime() - (100 * 24 * 60 * 60 * 1000))
+    var radius = '&maxradiuskm=' + this.radiusData
+    var startDate = new Date(new Date().getTime() - (this.periodData * 24 * 60 * 60 * 1000))
     var endDate = new Date()
     var startTime = '&starttime=' + this.convertDate(startDate)
     var endTime = '&endtime=' + this.convertDate(endDate)
@@ -118,9 +120,11 @@ class App {
     return year + month + day
   }
 
-  start(cityName, unitData) {
+  start(cityName, unitData, radiusData, periodData) {
     this.city = cityName
     this.unitData = unitData
+    this.radiusData = radiusData
+    this.periodData = periodData
     this.getAllData(cityName)
   }
 }

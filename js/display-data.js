@@ -181,7 +181,6 @@ class DisplayData {
       imgObj.style.width = '100%'
       imgObj.style.marginBottom = '10px'
 
-
       divItem.append(imgObj)
       divInner.append(divItem)
     }
@@ -211,7 +210,8 @@ class DisplayData {
   }
 
   switchDateFormatToPST(date) {
-    return new Date(date * 1000)
+    var d = new Date(date)
+    return d.toUTCString()
   }
 
   switchTempbyUnit(unitData) {
