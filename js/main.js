@@ -3,7 +3,6 @@ var weatherDataBoard = document.getElementById('weather-data-board')
 var cityBtn = document.getElementById('city-button')
 
 var formElement = document.getElementById('form')
-var msg = document.getElementById('msg')
 
 var weatherResultArray = []
 var geoResultArray = []
@@ -21,17 +20,18 @@ formElement.addEventListener('submit', function (event) {
   var cityInput = formData.get('city-input')
   var unitData = formData.get('unit-radio')
 
+  var cityElement = document.getElementById('city-input')
+
   if (cityInput.trim()) {
     app.start(cityInput, unitData)
   } else {
     setTimeout(function () {
-      msg.textContent = ''
-      msg.style.color = 'white'
+      cityElement.placeholder = ''
     }, 1000)
-    msg.textContent = 'Please enter city.'
-    msg.style.color = 'red'
+    cityElement.placeholder = 'Please enter city.'
   }
 
   // Clearing the fields after submiting the form
-  this.reset()
+  // this.reset()
+  cityElement.value = ''
 })
