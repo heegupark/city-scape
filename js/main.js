@@ -24,7 +24,6 @@ formElement.addEventListener('submit', function (event) {
 
   var cityElement = document.getElementById('city-input')
 
-  console.log(radiusData)
   if (cityInput.trim()) {
     app.start(cityInput, unitData, radiusData, periodData)
   } else {
@@ -38,3 +37,15 @@ formElement.addEventListener('submit', function (event) {
   // this.reset()
   cityElement.value = ''
 })
+
+// autocomplete
+function initialize() {
+  var options = {
+    types: ['(cities)']
+  }
+
+  var cityElement = document.getElementById('city-input')
+  var autocomplete = new google.maps.places.Autocomplete(cityElement, options)
+}
+
+google.maps.event.addDomListener(window, 'load', initialize)
