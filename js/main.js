@@ -19,11 +19,14 @@ formElement.addEventListener('submit', function (event) {
   var formData = new FormData(event.target)
   var cityInput = formData.get('city-input')
   var unitData = formData.get('unit-radio')
+  var radiusData = formData.get('radius-radio')
+  var periodData = formData.get('period-radio')
 
   var cityElement = document.getElementById('city-input')
 
+  console.log(radiusData)
   if (cityInput.trim()) {
-    app.start(cityInput, unitData)
+    app.start(cityInput, unitData, radiusData, periodData)
   } else {
     setTimeout(function () {
       cityElement.placeholder = ''

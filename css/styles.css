@@ -2,6 +2,10 @@ h1 {
   text-align: center;
 }
 
+img {
+  border-radius: 2px;
+}
+
 .city-title {
   padding-left: 30px;
 }
