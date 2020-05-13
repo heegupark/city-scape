@@ -12,18 +12,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body id="body-element">
   <main class="container">
+    <div id="modal-data-board"></div>
     <div class="row">
-      <div class="col jumbotron city-bg">
-        <h1 class="display-4 city-h1">City-verything</h1>
+      <div class="col city-bg">
+        <h1 class="city-h1">City-verything</h1>
         <p class="lead city-p">Search the information of a city!</p>
       </div>
     </div>
     <form id="form" class="row">
       <div class="input-group mb-1 mr-1 ml-1">
-        <input class="form-control border-dark" type="text" name="city-input" id="city-input" placeholder="Type your city here">
+        <input class="col-sm form-control border-dark" type="text" name="city-input" id="city-input" placeholder="Type your city here">
         <button class="btn btn-outline-light" id="city-button" type="submit">Submit</button>
       </div>
       <div class="input-group mb-1 mr-1 ml-1">
@@ -70,7 +70,9 @@
       </div>
     </div>
     <div class="row mb-1">
-      <div id="img-data-board" class="col-sm mr-1 ml-1">
+      <div id="img-data-board" class="col-sm mr-1 ml-1 img-board">
+      </div>
+      <div id="map-data-board" class="col-sm mr-1 ml-1 map-embed">
       </div>
     </div>
   </main>
@@ -80,10 +82,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
-  <script src="js/config.js"></script>
-  <script src="js/display-data.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/main.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/display-data.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>

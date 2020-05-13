@@ -25,7 +25,7 @@ formElement.addEventListener('submit', function (event) {
   var cityElement = document.getElementById('city-input')
 
   if (cityInput.trim()) {
-    app.start(cityInput, unitData, radiusData, periodData)
+    app.start(cityNameTrim(cityInput), unitData, radiusData, periodData)
   } else {
     setTimeout(function () {
       cityElement.placeholder = ''
@@ -37,6 +37,22 @@ formElement.addEventListener('submit', function (event) {
   // this.reset()
   cityElement.value = ''
 })
+
+// to get city ID from JSON file
+function cityNameTrim(cityInput) {
+  var strArr = cityInput.split(',')
+  switch(strArr.length) {
+    case 1:
+      return strArr[0]
+      break;
+    case 2:
+      return strArr[0] + ',' + strArr[1]
+      break;
+    case 3:
+      return strArr[0] + ',' + strArr[2]
+      break;
+  }
+}
 
 // autocomplete
 function initialize() {
