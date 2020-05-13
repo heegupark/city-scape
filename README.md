@@ -18,15 +18,16 @@
 6. Support most of mobile devices(iPad - Landsacpe/Portrait, iPhone X - Landsacpe/Portrait, iPhone 6s/7s/8s - Landsacpe/Portrait, iPhone 6/7/8 - Landsacpe/Portrait, and so on)
 
 ## Planned Features
-1. Request data from two APIs(Weather data, Earthquake data) and display those data to the document
-2. Dynamically create the data board
+1. Requesting data from more than two APIs(Weather data, Earthquake data) and display those data to the document
+2. Dynamically creating the data board
 3. Mobile responsibility - iPhone 6/7/8 - Landscape/Portrait, iPad - Landscape/Portrait
 
 ## Lessons Learned
 1. Various ways of calling public APIs using Ajax and dynamically display received data using JS DOM functions
 2. Experienced to deal with various kinds of data received from several APIs
-2. JavaScript Object Oriented Programming for better functionalities and to increase the re-usage of codes
-3. Experience from the very beginning to complete product - Planning, Development, Implementation, Deployment, Publishing
+3. JavaScript Object Oriented Programming for better functionalities and to increase the re-usage of codes
+4. Experience from the very beginning to complete product - Planning, Development, Implementation, Deployment, Publishing
+5. Went through possible error by requesting API calls such as CORS, Google API policy, or https/http call
 
 ## Live Site
 * You can see and test the live version here: <a href="https://city.heegu.net" target="blank">city.heegu.net</a>
