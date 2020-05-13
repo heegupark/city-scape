@@ -1,5 +1,5 @@
 class DisplayData {
-  constructor(formElement, appClass) {
+  constructor(formElement) {
     this.formElement = formElement
   }
 
