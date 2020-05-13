@@ -8,12 +8,14 @@
     - Weather data from Open Weather API(https://openweathermap.org/api)
     - Earthquake data from USGS API(https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)
     - Images from Pixabay API(https://pixabay.com/api/docs/)
+    - Autocomplete of city name via Google Maps API(https://developers.google.com/maps/documentation/javascript/tutorial)
 2. Different query condition for searching weather data and earthquake data
     - Weather data: Celsius, Fahrenheit, Kelvin
     - Earthquake data: Radius(100km, 200km, 300km, 400km, 500km, 600km), Period(100 days,  200 days, 300 days, 400 days, 500 days, 600 days) 
-3. This dynamically creates the data board using DOM upon the data receiving from APIs
-4. It has carousel function to view more data of earthquake data and image data
-5. Support most of mobile devices(iPad - Landsacpe/Portrait, iPhone X - Landsacpe/Portrait, iPhone 6s/7s/8s - Landsacpe/Portrait, iPhone 6/7/8 - Landsacpe/Portrait, and so on)
+3. Used Bootstrap for grid layout and basic UI
+4. This dynamically creates the data board using DOM upon the data receiving from APIs
+5. It has carousel function to view more data of earthquake data and image data
+6. Support most of mobile devices(iPad - Landsacpe/Portrait, iPhone X - Landsacpe/Portrait, iPhone 6s/7s/8s - Landsacpe/Portrait, iPhone 6/7/8 - Landsacpe/Portrait, and so on)
 
 ## Planned Features
 1. Request data from two APIs(Weather data, Earthquake data) and display those data to the document
