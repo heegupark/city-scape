@@ -1,6 +1,8 @@
 class DisplayData {
   constructor(formElement) {
     this.formElement = formElement
+    this.imgArr = []
+    this.active = 0
   }
 
   makeElement(elementStr, class1, class2, class3, text) {
@@ -53,12 +55,17 @@ class DisplayData {
 
     if (data) {
       var cityName = data.name + '(' + data.sys.country + ')'
-      var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
-      var divTitleCol = this.makeElement('div', 'h1', 'bolder', 'goldenrod', cityName)
-      divTitleRow.append(divTitleCol)
+      var divTitleRow = this.makeElement('div', 'row', '', '', '')
+      var divTitleCol = this.makeElement('div', 'col-sm', 'city-name', '', cityName)
+      var divCoordLonCol = this.makeElement('div', 'col-sm', 'city-coord', '', 'Longitude: ' + data.coord.lon)
+      var divCoordLatCol = this.makeElement('div', 'col-sm', 'city-coord', '', 'Latitude: ' + data.coord.lat)
+
+      divTitleRow.append(divTitleCol, divCoordLonCol, divCoordLatCol)
+      cityBoard.classList.add('card', 'border', 'border-dark')
+      cityBoard.append(divTitleRow)
+
+      this.displayMap(data.name)
     }
-    cityBoard.classList.add('card', 'border', 'border-dark')
-    cityBoard.append(divTitleRow)
   }
 
   displayWeatherData(data, unitData) {
@@ -72,7 +79,7 @@ class DisplayData {
 
     if(data) {
       var weatherTitle = 'Weather'
-      var divTitleCol = this.makeElement('div', 'h2', 'title', '', weatherTitle)
+      var divTitleCol = this.makeElement('div', 'col', 'title', 'weather-img', weatherTitle)
       divTitleRow.append(divTitleCol)
 
       var tempDataStr = data.main.temp + ' ' + this.switchTempbyUnit(unitData)
@@ -88,7 +95,7 @@ class DisplayData {
       var divRow4 = this.makeRow('', weatherDesc, 'fas', 'fa-cloud')
       weatherDataBoard.classList.add('card', 'border', 'border-dark')
       weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)
-     } else {
+    } else {
       var divRow1 = this.makeRow('Result', 'Failed to load data!')
       weatherDataBoard.classList.add('card', 'border', 'border-dark')
       weatherDataBoard.append(divRow1)
@@ -105,7 +112,7 @@ class DisplayData {
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
 
     var geoTitle = 'Earthquake'
-    var divTitleCol = this.makeElement('div', 'h2', 'title', '', geoTitle)
+    var divTitleCol = this.makeElement('div', 'col', 'title', 'earthquake-img', geoTitle)
 
     divTitleRow.append(divTitleCol)
 
@@ -145,18 +152,19 @@ class DisplayData {
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
 
-    var imgTitle = 'City photos'
-    var divTitleCol = this.makeElement('div', 'h2', 'title', '', imgTitle)
+    var imgTitle = 'Photos'
+    var divTitleCol = this.makeElement('div', 'col', 'title', 'photo-img', imgTitle)
 
     divTitleRow.append(divTitleCol)
+
     imgBoard.classList.add('card', 'border', 'border-dark')
 
     if(data && data.total > 0) {
-      var imgArr = []
+      // var imgArr = []
       for(var i=0;i<data.hits.length;i++) {
-        imgArr.push(data.hits[i].webformatURL)
+        this.imgArr.push(data.hits[i].webformatURL)
       }
-      imgBoard.append(divTitleRow, this.carouselContents(imgArr, 'carouselImageControl', 'img'))
+      imgBoard.append(divTitleRow, this.carouselContents(this.imgArr, 'carouselImageControl', 'img', false))
     } else {
       var divTextRow = this.makeElement('div', 'row', '', '', '', '', '')
       var text = 'Failed to find relevant images'
@@ -166,15 +174,40 @@ class DisplayData {
     }
   }
 
-  carouselContents(arr, id, category) {
-    var divControl = this.makeElement('div', 'carousel', 'slide', '', '')
+  displayMap(cityName) {
+    var mapDataBoard = document.getElementById('map-data-board')
+
+    while (mapDataBoard.firstChild) {
+      mapDataBoard.firstChild.remove()
+    }
+
+    var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
+
+    var mapTitle = 'Maps'
+    var divTitleCol = this.makeElement('div', 'col', 'title', 'map-img', mapTitle)
+
+    divTitleRow.append(divTitleCol)
+    mapDataBoard.classList.add('card', 'border', 'border-dark')
+
+    var divMapDataRow = this.makeElement('div', 'row', '', '', '', '', '')
+    var divMapDataCol = this.makeElement('div', 'col', '', '', '')
+    var divMapDataIFrame = this.makeElement('iframe', 'map', '', '', '')
+    var src = 'https://www.google.com/maps/embed/v1/place?key=' + GOOGLE_MAP_API_KEY + '&q=' + cityName
+    divMapDataIFrame.src = src
+    divMapDataCol.append(divMapDataIFrame)
+    divMapDataRow.append(divMapDataCol)
+    mapDataBoard.append(divTitleRow, divMapDataRow)
+  }
+
+  carouselContents(arr, id, category, isModal) {
+    var divControl = this.makeElement('div', 'carousel', 'slide', 'img-box', '')
     divControl.id = id
     divControl.setAttribute('data-ride', 'carousel')
 
     var divInner = this.makeElement('div', 'carousel-inner', '', '', '')
 
     for (var i = 0; i < arr.length; i++) {
-      if (i === 0) {
+      if (i === this.active) {
         var divItem = this.makeElement('div', 'carousel-item', 'active', '', '')
       } else {
         var divItem = this.makeElement('div', 'carousel-item', '', '', '')
@@ -184,8 +217,20 @@ class DisplayData {
         var obj = this.makeElement('div', 'd-block', 'w-100', '', '')
         obj.append(arr[i])
       } else if (category === 'img') {
-        var obj = this.makeElement('img', 'd-block', 'w-100', '', '')
+        if(isModal) {
+          var obj = this.makeElement('img', 'd-block', 'w-100', '', '')
+        } else {
+          var obj = this.makeElement('img', 'd-block', 'w-100', 'img-city', '')
+          obj.id = i
+        }
+
         obj.src = arr[i]
+        obj.setAttribute('data-target', '#img-modal')
+        obj.setAttribute('data-toggle', 'modal')
+
+        obj.addEventListener('click', (e) => {
+          this.onImgClick(e)
+        })
       }
 
       obj.style.marginBottom = '10px'
@@ -204,56 +249,104 @@ class DisplayData {
     return divControl
   }
 
+  onImgClick(e) {
+    this.active = Number(e.target.id)
+    var modalBoard = document.getElementById('modal-data-board')
+    var modalObj = this.displayInModalwithCarousel('img-modal', this.carouselContents(this.imgArr, 'carouselImageControlModal', 'img', true))
+
+    if (modalBoard.firstChild) {
+      modalBoard.firstChild.remove()
+    }
+    modalBoard.append(modalObj)
+  }
+
   carouselBtn(string, id) {
-    var object = this.makeElement('a', 'carousel-control-' + string, 'carousel-btn', '', '')
+    var object = this.makeElement('a', 'carousel-control-' + string, '', '', '')
     object.href = '#' + id
     object.setAttribute('role', 'button')
     object.setAttribute('data-slide', string)
 
-    var objectSpan1 = this.makeElement('span', 'carousel-control-' + string + '-icon', '', '', '')
+    var objectSpan1 = this.makeElement('span', 'carousel-control-' + string + '-icon', 'carousel-btn', '', '')
     objectSpan1.setAttribute('aria-hidden', 'true')
 
-    var objectSpan2 = this.makeElement('span', 'sr-only', '', '', '')
+    var objectSpan2 = this.makeElement('span', 'sr-only', 'sr-only-custom', '', '')
     objectSpan2.textContent = string
     object.append(objectSpan1, objectSpan2)
 
     return object
   }
 
-  displayInModal(title, body) {
+  displayInModal(id, title, text, src) {
     var modal = this.makeElement('div', 'modal', '', '', '')
     modal.setAttribute('tabindex', '-1')
     modal.setAttribute('role', 'dialog')
+    modal.id = id
 
-    var modalDiag = this.makeElement('div', 'modal-dialog', '', '', '')
+    var modalDiag = this.makeElement('div', 'modal-dialog', 'modal-xl', '', '')
     modalDiag.setAttribute('role', 'document')
 
-    var modalContent = this.makeElement('div', 'modal-content', '', '', '')
+    var modalContent = this.makeElement('div', 'modal-content', 'modal-custom', '', '')
 
-    var modalHeader = this.makeElement('div', 'modal-header', '', '', '')
+    if(title) {
+      var modalHeader = this.makeElement('div', 'modal-header', '', '', '')
 
-    var modalTitle = this.makeElement('h5', 'modal-title', '', '', '')
-    modalTitle.textContent = title
+      var modalTitle = this.makeElement('h5', 'modal-title', '', '', '')
+      modalTitle.textContent = title
 
-    var closeBtn = this.makeElement('button', 'close', 'btn', 'btn-outline-dark', '')
-    closeBtn.setAttribute('type', 'button')
-    closeBtn.setAttribute('data-dismiss', 'modal')
-    closeBtn.setAttribute('aria-label', 'Close')
+      var closeBtn = this.makeElement('button', 'close', 'btn', 'btn-outline-dark', '')
+      closeBtn.setAttribute('type', 'button')
+      closeBtn.setAttribute('data-dismiss', 'modal')
+      closeBtn.setAttribute('aria-label', 'Close')
 
-    var closeSpan = document.createElement('span')
-    closeSpan.setAttribute('aria-hidden', 'true')
-    closeSpan.textContent = '&times;'
-    closeBtn.append(closeSpan)
+      var closeSpan = document.createElement('span')
+      closeSpan.setAttribute('aria-hidden', 'true')
+      closeSpan.textContent = 'x'
+      closeBtn.append(closeSpan)
 
-    modalHeader.append(modalTitle, closeBtn)
+      modalHeader.append(modalTitle, closeBtn)
+    }
 
-    var modalbody = this.makeElement('div', 'modal-body', '', '', '')
-    var p = document.createElement('p')
-    p.textContent = body
-    modalbody.append(p)
+    var modalbody = this.makeElement('div', 'modal-body', 'modal-custom-body', '', '')
 
-    modalContent.append(modalHeader, modalbody)
+    if(text) {
+      var p = document.createElement('p')
+      p.textContent = text
+      modalContent.append(modalHeader, modalbody)
+    }
 
+    if(src) {
+      var img = this.makeElement('img', 'img-fit', '','','')
+      img.src = src
+      modalbody.append(img)
+    }
+
+    if(title) {
+      modalContent.append(modalHeader, modalbody)
+    } else {
+      modalContent.append(modalbody)
+    }
+
+    modalDiag.append(modalContent)
+    modal.append(modalDiag)
+
+    return modal
+  }
+
+  displayInModalwithCarousel(id, obj) {
+    var modal = this.makeElement('div', 'modal', '', '', '')
+    modal.setAttribute('tabindex', '-1')
+    modal.setAttribute('role', 'dialog')
+    modal.id = id
+
+    var modalDiag = this.makeElement('div', 'modal-dialog', 'modal-xl', '', '')
+    modalDiag.setAttribute('role', 'document')
+
+    var modalContent = this.makeElement('div', 'modal-content', 'modal-custom', '', '')
+
+    var modalbody = this.makeElement('div', 'modal-body', 'modal-custom-body', '', '')
+
+    modalbody.append(obj)
+    modalContent.append(modalbody)
     modalDiag.append(modalContent)
     modal.append(modalDiag)
 

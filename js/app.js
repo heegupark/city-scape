@@ -66,7 +66,7 @@ class App {
 
   getPixabayData(query1, query2) {
     var url = 'https://pixabay.com/api/'
-    var apiKey = pixabayApiKey
+    var apiKey = PIXABAY_API_KEY
     var q = '&q=' + query2
     $.ajax({
       method: 'GET',
@@ -79,7 +79,7 @@ class App {
   getWeatherData(cityName) {
     var url = 'https://api.openweathermap.org/data/2.5/'
     var path = 'weather?q='
-    var apiKey = openWeatherApiKey
+    var apiKey = OPEN_WEATHER_API_KEY
     $.ajax({
       method: 'GET',
       url: url + path + cityName + '&appid=' + apiKey + '&units=' + this.unitData,
@@ -98,8 +98,8 @@ class App {
     var startTime = '&starttime=' + this.convertDate(startDate)
     var endTime = '&endtime=' + this.convertDate(endDate)
     var limit = '&limit=' + 10
-    var appID = geoserviceAppID
-    var appKey = geoserviceApiKey
+    var appID = GEOSERVICE_APP_ID
+    var appKey = GEOSERVICE_API_KEY
     $.ajax({
       method: 'GET',
       url: url + lat + lon + radius + startTime + endTime + limit,
@@ -120,11 +120,11 @@ class App {
     return year + month + day
   }
 
-  start(cityName, unitData, radiusData, periodData) {
-    this.city = cityName
+  start(cityInput, unitData, radiusData, periodData) {
+    this.city = cityInput
     this.unitData = unitData
     this.radiusData = radiusData
     this.periodData = periodData
-    this.getAllData(cityName)
+    this.getAllData(cityInput)
   }
 }
