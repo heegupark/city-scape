@@ -77,7 +77,7 @@ class App {
   }
 
   getWeatherData(cityName) {
-    var url = 'http://api.openweathermap.org/data/2.5/'
+    var url = 'https://api.openweathermap.org/data/2.5/'
     var path = 'weather?q='
     var apiKey = openWeatherApiKey
     $.ajax({
