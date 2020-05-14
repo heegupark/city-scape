@@ -38,6 +38,43 @@ formElement.addEventListener('submit', function (event) {
   cityElement.value = ''
 })
 
+var queryChangeBtn = document.getElementById('query-change-btn')
+var isHide = true
+queryChangeBtn.addEventListener('click', function() {
+  searchMenuToggle()
+  isHide = !isHide
+})
+
+function searchMenuToggle() {
+  var unitRadioMenu = document.getElementById('unit-radio-menu')
+  var radiusRadioMenu = document.getElementById('radius-radio-menu')
+  var periodRadioMenu = document.getElementById('period-radio-menu')
+
+  if (isHide) {
+    unitRadioMenu.className = dnoneCheck(unitRadioMenu.className.split(' '))
+    radiusRadioMenu.className = dnoneCheck(radiusRadioMenu.className.split(' '))
+    periodRadioMenu.className = dnoneCheck(periodRadioMenu.className.split(' '))
+    queryChangeBtn.textContent = 'Hide Search Option'
+  } else {
+    unitRadioMenu.className += 'd-none'
+    radiusRadioMenu.className += 'd-none'
+    periodRadioMenu.className += 'd-none'
+    queryChangeBtn.textContent = 'Show Search Option'
+  }
+
+
+}
+
+function dnoneCheck(arr) {
+  var classStr = ''
+  for (var i = 0; i < arr.length; i++) {
+    if(arr[i] !== 'd-none') {
+      classStr += arr[i] + ' '
+    }
+  }
+  return classStr
+}
+
 // to get city ID from JSON file
 function cityNameTrim(cityInput) {
   var strArr = cityInput.split(',')

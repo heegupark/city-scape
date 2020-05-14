@@ -291,7 +291,7 @@ class DisplayData {
     var modalDiag = this.makeElement('div', 'modal-dialog', '', '', '')
     modalDiag.setAttribute('role', 'document')
 
-    var modalContent = this.makeElement('div', 'modal-content', '', '', '')
+    var modalContent = this.makeElement('div', 'modal-content', 'modal-design-custom', '', '')
 
     if(title) {
       var modalHeader = this.makeElement('div', 'modal-header', 'modal-title-img', '', '')
@@ -299,14 +299,14 @@ class DisplayData {
       var modalTitle = this.makeElement('h5', 'modal-title', '', '', '')
       modalTitle.textContent = title
 
-      var closeBtn = this.makeElement('button', 'close', 'btn', 'btn-outline-dark', '')
+      var closeBtn = this.makeElement('button', 'close', '', '', '')
       closeBtn.setAttribute('type', 'button')
       closeBtn.setAttribute('data-dismiss', 'modal')
       closeBtn.setAttribute('aria-label', 'Close')
 
-      var closeSpan = document.createElement('span')
+      var closeSpan = this.makeElement('span', 'modal-close-btn-custom','','','')
       closeSpan.setAttribute('aria-hidden', 'true')
-      closeSpan.textContent = 'x'
+      closeSpan.textContent = 'X'
       closeBtn.append(closeSpan)
 
       modalHeader.append(modalTitle, closeBtn)
