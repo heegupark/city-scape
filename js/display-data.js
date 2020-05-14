@@ -96,9 +96,13 @@ class DisplayData {
       weatherDataBoard.classList.add('card', 'border', 'border-dark')
       weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)
     } else {
-      var divRow1 = this.makeRow('Result', 'Failed to load data!')
-      weatherDataBoard.classList.add('card', 'border', 'border-dark')
-      weatherDataBoard.append(divRow1)
+      this.clearAllFields()
+
+      var modalBoard = document.getElementById('modal-data-board')
+      var modalObj = this.displayInModal('error-modal', 'Error', 'Failed to load data. Please search different city.','')
+      modalBoard.append(modalObj)
+
+      $("#error-modal").modal('show')
     }
   }
 
@@ -116,7 +120,7 @@ class DisplayData {
 
     divTitleRow.append(divTitleCol)
 
-    if (data.features[0]) {
+    if (data && data.features[0]) {
       var objArr = []
       for (var i = 0; i < data.features.length; i++) {
         var div = this.makeElement('div','col','','','')
@@ -172,7 +176,7 @@ class DisplayData {
       var text = 'Failed to find relevant images'
       var divTextCol = this.makeElement('div', 'col', 'card-text', '', text)
       divTextRow.append(divTextCol)
-      imgBoard.append(divTextRow)
+      imgBoard.append(divTitleRow, divTextRow)
     }
   }
 
@@ -284,13 +288,13 @@ class DisplayData {
     modal.setAttribute('role', 'dialog')
     modal.id = id
 
-    var modalDiag = this.makeElement('div', 'modal-dialog', 'modal-xl', '', '')
+    var modalDiag = this.makeElement('div', 'modal-dialog', '', '', '')
     modalDiag.setAttribute('role', 'document')
 
-    var modalContent = this.makeElement('div', 'modal-content', 'modal-custom', '', '')
+    var modalContent = this.makeElement('div', 'modal-content', '', '', '')
 
     if(title) {
-      var modalHeader = this.makeElement('div', 'modal-header', '', '', '')
+      var modalHeader = this.makeElement('div', 'modal-header', 'modal-title-img', '', '')
 
       var modalTitle = this.makeElement('h5', 'modal-title', '', '', '')
       modalTitle.textContent = title
@@ -313,7 +317,7 @@ class DisplayData {
     if(text) {
       var p = document.createElement('p')
       p.textContent = text
-      modalContent.append(modalHeader, modalbody)
+      modalbody.append(p)
     }
 
     if(src) {
