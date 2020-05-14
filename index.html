@@ -12,9 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+<div id="modal-data-board"></div>
 <body id="body-element">
   <main class="container">
-    <div id="modal-data-board"></div>
     <div class="row">
       <div class="col city-bg">
         <h1 class="city-h1">City-verything</h1>
@@ -26,7 +26,7 @@
         <input class="col-sm form-control border-dark" type="text" name="city-input" id="city-input" placeholder="Type your city here">
         <button class="btn btn-outline-dark" id="city-button" type="submit">Search</button>
       </div>
-      <div id="unit-radio-menu" class="input-group mb-1 mr-1 ml-1 d-none">
+      <div id="unit-radio-menu" class="input-group mb-1 mr-1 ml-1">
         <div class="col-sm col-sm-4 input-group">
           <label class="col-sm input-group-text input-group-custom-label">Temperature Unit</label>
           <select name="unit-radio" class="col-sm custom-select input-group-custom" id="unit">
@@ -35,7 +35,7 @@
             <option id="default" value="default">&#8490;</option>
           </select>
         </div>
-        <div id="radius-radio-menu"  class="col-sm col-sm-4 input-group d-none">
+        <div id="radius-radio-menu"  class="col-sm col-sm-4 input-group">
           <span class="col-sm input-group-text input-group-custom-label">Earthquake Radius</span>
           <select name="radius-radio" class="col-sm custom-select input-group-custom" id="radius">
             <option id="100km" value="100" selected>100km</option>
@@ -46,7 +46,7 @@
             <option id="600km" value="600">600km</option>
           </select>
         </div>
-        <div id="period-radio-menu"  class="col-sm col-sm-4 input-group d-none">
+        <div id="period-radio-menu"  class="col-sm col-sm-4 input-group">
           <span class="col-sm input-group-text input-group-custom-label">Earthquake Date</span>
           <select name="period-radio" class="col-sm custom-select input-group-custom" id="period">
             <option id="100days" value="100" selected>within 100 days</option>
