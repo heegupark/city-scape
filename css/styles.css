@@ -1,7 +1,6 @@
 body {
   font-family: 'Baloo Bhaina 2', cursive;
   background-image: url('../img/bg.png');
-  /* background-color: black; */
 }
 
 h1 {
@@ -9,8 +8,40 @@ h1 {
   text-align: center;
 }
 
+main {
+  min-height: 93vh;
+}
+
 .row-custom {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.input-group-custom-label {
+  font-size: 12px;
+  height: 30px;
+  background-color: rgba(88, 88, 88, 0.8);
+  color: white;
+}
+
+.input-group-custom {
+  font-size: 12px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.change-btn-custom {
+  text-align: center;
+}
+
+.change-btn-custom > button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.change-btn-custom > button:hover {
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  border: none;
 }
 
 .city-bg {
@@ -104,6 +135,15 @@ p {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.modal-design-custom {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.modal-close-btn-custom {
+  text-shadow: none;
+}
+
 .img-fit {
   border-radius: 3px;
   width: 100%;
@@ -126,13 +166,7 @@ p {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-@media (max-width: 575.98px) {
-  .city-coord {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 767.98px) {
+@media (max-width: 1199.98px) {
 
 }
 
@@ -140,6 +174,26 @@ p {
 
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 767.98px) {
+  .body-msg {
+    font-size: 20px;
+  }
+}
 
+@media (max-width: 575.98px) {
+  .city-coord {
+    font-size: 14px;
+  }
+
+  .body-msg {
+    font-size: 18px;
+  }
+
+  main {
+    min-height: 23vh;
+  }
+
+  footer {
+    font-size: 14px;
+  }
 }
