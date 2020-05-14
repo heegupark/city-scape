@@ -70,6 +70,12 @@ p {
   margin-bottom: 5px;
 }
 
+.modal-title-img {
+  color: white;
+  text-shadow: 1px 1px black;
+  background-image: url('../img/bg.png');
+}
+
 .weather-img {
   color: white;
   text-shadow: 1px 1px black;
@@ -124,8 +130,6 @@ p {
   .city-coord {
     font-size: 14px;
   }
-
-
 }
 
 @media (max-width: 767.98px) {
