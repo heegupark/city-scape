@@ -22,6 +22,7 @@ class App {
 
   handleWeatherDataError(error) {
     console.error(error)
+    this.displayData.clearAllFields()
     this.displayData.displayWeatherData(null, null)
   }
 
@@ -54,6 +55,7 @@ class App {
   }
 
   displayAll() {
+    this.displayData.clearAllFields()
     this.displayData.displayCityName(weatherResultArray)
     this.displayData.displayWeatherData(weatherResultArray, this.unitData)
     this.displayData.displayGeoData(geoResultArray)
