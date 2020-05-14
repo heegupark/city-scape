@@ -42,37 +42,28 @@ var queryChangeBtn = document.getElementById('query-change-btn')
 var isHide = true
 queryChangeBtn.addEventListener('click', function() {
   searchMenuToggle()
-  isHide = !isHide
 })
 
+var unitRadioMenu = document.getElementById('unit-radio-menu')
+var radiusRadioMenu = document.getElementById('radius-radio-menu')
+var periodRadioMenu = document.getElementById('period-radio-menu')
+
+searchMenuToggle()
+
 function searchMenuToggle() {
-  var unitRadioMenu = document.getElementById('unit-radio-menu')
-  var radiusRadioMenu = document.getElementById('radius-radio-menu')
-  var periodRadioMenu = document.getElementById('period-radio-menu')
 
   if (isHide) {
-    unitRadioMenu.className = dnoneCheck(unitRadioMenu.className.split(' '))
-    radiusRadioMenu.className = dnoneCheck(radiusRadioMenu.className.split(' '))
-    periodRadioMenu.className = dnoneCheck(periodRadioMenu.className.split(' '))
-    queryChangeBtn.textContent = 'Hide Search Option'
-  } else {
-    unitRadioMenu.className += 'd-none'
-    radiusRadioMenu.className += 'd-none'
-    periodRadioMenu.className += 'd-none'
+    $(unitRadioMenu).hide()
+    $(radiusRadioMenu).hide()
+    $(periodRadioMenu).hide()
     queryChangeBtn.textContent = 'Show Search Option'
+  } else {
+    $(unitRadioMenu).fadeIn('slow')
+    $(radiusRadioMenu).fadeIn('slow')
+    $(periodRadioMenu).fadeIn('slow')
+    queryChangeBtn.textContent = 'Hide Search Option'
   }
-
-
-}
-
-function dnoneCheck(arr) {
-  var classStr = ''
-  for (var i = 0; i < arr.length; i++) {
-    if(arr[i] !== 'd-none') {
-      classStr += arr[i] + ' '
-    }
-  }
-  return classStr
+  isHide = !isHide
 }
 
 // to get city ID from JSON file
@@ -101,4 +92,9 @@ function initialize() {
   var autocomplete = new google.maps.places.Autocomplete(cityElement, options)
 }
 
-google.maps.event.addDomListener(window, 'load', initialize)
+// google.maps.event.addDomListener(window, 'load', initialize)
+function initAutocomplete() {
+  google.maps.event.addDomListener(window, 'load', initialize)
+}
+
+initAutocomplete()
