@@ -57,8 +57,8 @@ class DisplayData {
       var cityName = data.name + '(' + data.sys.country + ')'
       var divTitleRow = this.makeElement('div', 'row', '', '', '')
       var divTitleCol = this.makeElement('div', 'col-sm', 'city-name', '', cityName)
-      var divCoordLonCol = this.makeElement('div', 'col-sm', 'city-coord', '', 'Longitude: ' + data.coord.lon)
-      var divCoordLatCol = this.makeElement('div', 'col-sm', 'city-coord', '', 'Latitude: ' + data.coord.lat)
+      var divCoordLonCol = this.makeElement('div', 'col-sm', 'city-coord', '', 'Longitude: ' + data.coord.lon + '°')
+      var divCoordLatCol = this.makeElement('div', 'col-sm', 'city-coord', '', 'Latitude: ' + data.coord.lat + '°')
 
       divTitleRow.append(divTitleCol, divCoordLonCol, divCoordLatCol)
       cityBoard.classList.add('card', 'border', 'border-dark')
@@ -148,6 +148,8 @@ class DisplayData {
 
     while (imgBoard.firstChild) {
       imgBoard.firstChild.remove()
+      this.active = 0
+      this.imgArr = []
     }
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
@@ -373,5 +375,41 @@ class DisplayData {
       default:
         return 'meter/sec'
     }
+  }
+
+  clearAllFields() {
+    this.active = 0
+    this.imgArr = []
+    var cityBoard = document.getElementById('city-data-board')
+    var weatherDataBoard = document.getElementById('weather-data-board')
+    var geoDataBoard = document.getElementById('geo-data-board')
+    var imgBoard = document.getElementById('img-data-board')
+    var mapDataBoard = document.getElementById('map-data-board')
+
+    this.removeClasses(cityBoard)
+    this.removeClasses(weatherDataBoard)
+    this.removeClasses(geoDataBoard)
+    this.removeClasses(imgBoard)
+    this.removeClasses(mapDataBoard)
+
+    while (cityBoard.firstChild) {
+      cityBoard.firstChild.remove()
+    }
+    while (weatherDataBoard.firstChild) {
+      weatherDataBoard.firstChild.remove()
+    }
+    while (geoDataBoard.firstChild) {
+      geoDataBoard.firstChild.remove()
+    }
+    while (imgBoard.firstChild) {
+      imgBoard.firstChild.remove()
+    }
+    while (mapDataBoard.firstChild) {
+      mapDataBoard.firstChild.remove()
+    }
+  }
+
+  removeClasses(obj) {
+    obj.classList.remove('title', 'card', 'border', 'border-dark')
   }
 }
