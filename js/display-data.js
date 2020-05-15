@@ -46,21 +46,33 @@ class DisplayData {
     return divRow
   }
 
+  getLocalTime(offset) {
+    var date = new Date()
+    var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+    return new Date(utc + (1000*offset)).toLocaleString()
+  }
+
   displayCityName(data) {
     var cityBoard = document.getElementById('city-data-board')
 
     while (cityBoard.firstChild) {
       cityBoard.firstChild.remove()
     }
-
+    console.log(data)
     if (data) {
       var cityName = data.name + '(' + data.sys.country + ')'
       var divTitleRow = this.makeElement('div', 'row', '', '', '')
       var divTitleCol = this.makeElement('div', 'col-sm', 'city-name', '', cityName)
-      var divCoordLonCol = this.makeElement('div', 'col-sm', 'city-coord', '', 'Longitude: ' + data.coord.lon + '°')
-      var divCoordLatCol = this.makeElement('div', 'col-sm', 'city-coord', '', 'Latitude: ' + data.coord.lat + '°')
-
-      divTitleRow.append(divTitleCol, divCoordLonCol, divCoordLatCol)
+      var divDescCol = this.makeElement('div', 'col-sm', 'city-desc', '', '')
+      var divTimeRow = this.makeElement('div', 'row', '', '', '')
+      var divTimeCol = this.makeElement('div', 'col-sm', 'city-time', '', `Local time: ${this.getLocalTime(data.timezone)}`)
+      divTimeRow.append(divTimeCol)
+      var divCoordRow = this.makeElement('div', 'row', '', '', '')
+      var divCoordLonCol = this.makeElement('div', 'col-sm', 'city-coord', '', `Longitude: ${data.coord.lon}°`)
+      var divCoordLatCol = this.makeElement('div', 'col-sm', 'city-coord', '', `Latitude: ${data.coord.lat}°`)
+      divCoordRow.append(divCoordLatCol, divCoordLonCol)
+      divDescCol.append(divTimeRow, divCoordRow)
+      divTitleRow.append(divTitleCol, divDescCol)
       cityBoard.classList.add('card', 'border', 'border-dark')
 
       cityBoard.append(divTitleRow)
@@ -92,7 +104,7 @@ class DisplayData {
       var windSpeed = data.wind.speed + ' ' + this.switchWindbyUnit(unitData)
       var divRow3 = this.makeRow('', windSpeed, 'fas', 'fa-wind')
 
-      var weatherDesc = data.weather[0].main
+      var weatherDesc = `${data.weather[0].main} - ${data.weather[0].description}`
       var divRow4 = this.makeRow('', weatherDesc, 'fas', 'fa-cloud')
       weatherDataBoard.classList.add('card', 'border', 'border-dark')
       weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)

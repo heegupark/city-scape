@@ -1,31 +1,20 @@
 var weatherDataBoard = document.getElementById('weather-data-board')
-
 var cityBtn = document.getElementById('city-button')
-
 var formElement = document.getElementById('form')
+var unitRadioMenu = document.getElementById('unit-radio-menu')
+var radiusRadioMenu = document.getElementById('radius-radio-menu')
+var periodRadioMenu = document.getElementById('period-radio-menu')
+var queryChangeBtn = document.getElementById('query-change-btn')
 
 var weatherResultArray = []
 var geoResultArray = []
 var pixabayResultArray = []
-var displayData = new DisplayData(formElement)
 
+var displayData = new DisplayData(formElement)
 var app = new App(displayData)
 
 var unitData = 'metric'
-
-var unitRadioMenu = document.getElementById('unit-radio-menu')
-var radiusRadioMenu = document.getElementById('radius-radio-menu')
-var periodRadioMenu = document.getElementById('period-radio-menu')
-
-var queryChangeBtn = document.getElementById('query-change-btn')
-
 var isHide = true
-
-queryChangeBtn.addEventListener('click', function () {
-  searchMenuToggle()
-})
-
-searchMenuToggle()
 
 // City name autocomplete by Google API
 initAutocomplete()
@@ -54,9 +43,13 @@ formElement.addEventListener('submit', function (event) {
   // this.reset()
   //cityElement.value = ''
 })
+queryChangeBtn.addEventListener('click', function () {
+  searchMenuToggle()
+})
+
+searchMenuToggle()
 
 function searchMenuToggle() {
-
   if (isHide) {
     $(unitRadioMenu).hide()
     $(radiusRadioMenu).hide()
