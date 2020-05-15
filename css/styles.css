@@ -64,7 +64,7 @@ main {
   background-image: url('../img/city.png');
 }
 
-.city-coord {
+.city-coord, .city-time {
   font-size: 18px;
   margin: auto;
 }
@@ -187,11 +187,15 @@ p {
   .body-msg {
     font-size: 20px;
   }
+
+  .city-coord, .city-time  {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 575.98px) {
-  .city-coord {
-    font-size: 14px;
+  .city-coord, .city-time  {
+    font-size: 16px;
   }
 
   .body-msg {
