@@ -35,7 +35,7 @@ formElement.addEventListener('submit', function (event) {
 
   // Clearing the fields after submiting the form
   // this.reset()
-  cityElement.value = ''
+  //cityElement.value = ''
 })
 
 var queryChangeBtn = document.getElementById('query-change-btn')

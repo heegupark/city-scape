@@ -69,11 +69,6 @@ class DisplayData {
     }
   }
 
-  hideAndShow(obj) {
-    $(obj).hide()
-    $(obj).fadeIn('slow')
-  }
-
   displayWeatherData(data, unitData) {
     var weatherDataBoard = document.getElementById('weather-data-board')
 
@@ -320,6 +315,7 @@ class DisplayData {
       closeSpan.setAttribute('aria-hidden', 'true')
       closeSpan.textContent = 'X'
       closeBtn.append(closeSpan)
+      closeBtn.focus()
 
       modalHeader.append(modalTitle, closeBtn)
     }
@@ -427,5 +423,10 @@ class DisplayData {
 
   removeClasses(obj) {
     obj.classList.remove('title', 'card', 'border', 'border-dark')
+  }
+
+  hideAndShow(obj) {
+    $(obj).hide()
+    $(obj).fadeIn('slow')
   }
 }
