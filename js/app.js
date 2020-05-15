@@ -1,13 +1,13 @@
 class App {
-  constructor(displayData, formData, unitData, radiusData, periodData, city, lon, lat) {
+  constructor(displayData) {
     this.displayData = displayData
-    this.formData = formData
-    this.unitData = unitData
-    this.radiusData = radiusData
-    this.periodData = periodData
-    this.city = city
-    this.lat = lat
-    this.lon = lon
+    this.formData = null
+    this.unitData = null
+    this.radiusData = null
+    this.periodData = null
+    this.city = null
+    this.lat = null
+    this.lon = null
     this.displayAll = this.displayAll.bind(this)
     this.getWeatherData = this.getWeatherData.bind(this)
     this.getGeoData = this.getGeoData.bind(this)
@@ -66,13 +66,11 @@ class App {
     this.getWeatherData(cityName)
   }
 
-  getPixabayData(query1, query2) {
+  getPixabayData(weatherQuery, cityQuery) {
     var url = 'https://pixabay.com/api/'
-    var apiKey = PIXABAY_API_KEY
-    var q = '&q=' + query2
     $.ajax({
       method: 'GET',
-      url: url + '?key=' + apiKey + q + '&image_type=photo',
+      url: url + `?key=${PIXABAY_API_KEY}&q=${cityQuery}&image_type=photo`,
       success: this.handlePixabayDataSuccess,
       error: this.handlePixabayDataError
     })
@@ -80,11 +78,9 @@ class App {
 
   getWeatherData(cityName) {
     var url = 'https://api.openweathermap.org/data/2.5/'
-    var path = 'weather?q='
-    var apiKey = OPEN_WEATHER_API_KEY
     $.ajax({
       method: 'GET',
-      url: url + path + cityName + '&appid=' + apiKey + '&units=' + this.unitData,
+      url: url + `weather?q=${cityName}&appid=${OPEN_WEATHER_API_KEY}&units=${this.unitData}`,
       success: this.handleWeatherDataSuccess,
       error: this.handleWeatherDataError
     })
@@ -92,19 +88,16 @@ class App {
 
   getGeoData(lon, lat) {
     var url = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson'
-    var lat = '&latitude=' + lat
-    var lon = '&longitude=' + lon
-    var radius = '&maxradiuskm=' + this.radiusData
     var startDate = new Date(new Date().getTime() - (this.periodData * 24 * 60 * 60 * 1000))
     var endDate = new Date()
-    var startTime = '&starttime=' + this.convertDate(startDate)
-    var endTime = '&endtime=' + this.convertDate(endDate)
-    var limit = '&limit=' + 10
+    var startTime = this.convertDate(startDate)
+    var endTime = this.convertDate(endDate)
+    var limit = 10
     var appID = GEOSERVICE_APP_ID
     var appKey = GEOSERVICE_API_KEY
     $.ajax({
       method: 'GET',
-      url: url + lat + lon + radius + startTime + endTime + limit,
+      url: url + `&latitude=${lat}&longitude=${lon}&maxradiuskm=${this.radiusData}&starttime=${startTime}&endtime=${endTime}&limit=${limit}`,
       success: this.handleGeoDataSuccess,
       error: this.handleGeoDataError
     })
