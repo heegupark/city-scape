@@ -13,6 +13,23 @@ var app = new App(displayData)
 
 var unitData = 'metric'
 
+var unitRadioMenu = document.getElementById('unit-radio-menu')
+var radiusRadioMenu = document.getElementById('radius-radio-menu')
+var periodRadioMenu = document.getElementById('period-radio-menu')
+
+var queryChangeBtn = document.getElementById('query-change-btn')
+
+var isHide = true
+
+queryChangeBtn.addEventListener('click', function () {
+  searchMenuToggle()
+})
+
+searchMenuToggle()
+
+// City name autocomplete by Google API
+initAutocomplete()
+
 formElement.addEventListener('submit', function (event) {
   event.preventDefault()
 
@@ -37,18 +54,6 @@ formElement.addEventListener('submit', function (event) {
   // this.reset()
   //cityElement.value = ''
 })
-
-var queryChangeBtn = document.getElementById('query-change-btn')
-var isHide = true
-queryChangeBtn.addEventListener('click', function() {
-  searchMenuToggle()
-})
-
-var unitRadioMenu = document.getElementById('unit-radio-menu')
-var radiusRadioMenu = document.getElementById('radius-radio-menu')
-var periodRadioMenu = document.getElementById('period-radio-menu')
-
-searchMenuToggle()
 
 function searchMenuToggle() {
 
@@ -96,5 +101,3 @@ function initialize() {
 function initAutocomplete() {
   google.maps.event.addDomListener(window, 'load', initialize)
 }
-
-initAutocomplete()
