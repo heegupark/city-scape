@@ -3,6 +3,7 @@ class DisplayData {
     this.formElement = formElement
     this.imgArr = []
     this.active = 0
+    this.isSpinnerOn = true
   }
 
   makeElement(elementStr, class1, class2, class3, text) {
@@ -75,7 +76,10 @@ class DisplayData {
     while (weatherDataBoard.firstChild) {
       weatherDataBoard.firstChild.remove()
     }
-
+    // Spinner add
+    if (this.isSpinnerOn) {
+      weatherDataBoard.append(this.addSpinner())
+    }
     var divTitleRow = this.makeElement('div', 'row', '', '', '')
 
     if(data) {
@@ -95,6 +99,11 @@ class DisplayData {
       var weatherDesc = data.weather[0].main
       var divRow4 = this.makeRow('', weatherDesc, 'fas', 'fa-cloud')
       weatherDataBoard.classList.add('card', 'border', 'border-dark')
+
+      // Spinner remove
+      if (this.isSpinnerOn) {
+        weatherDataBoard.firstChild.remove()
+      }
       weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)
       this.hideAndShow(weatherDataBoard)
     } else {
@@ -102,6 +111,10 @@ class DisplayData {
 
       var modalBoard = document.getElementById('modal-data-board')
       var modalObj = this.displayInModal('error-modal', 'Error', 'Failed to load data. Please search different city.','')
+      // Spinner remove
+      if (this.isSpinnerOn) {
+        weatherDataBoard.firstChild.remove()
+      }
       modalBoard.append(modalObj)
       $("#error-modal").modal('show')
     }
@@ -112,6 +125,11 @@ class DisplayData {
 
     while (geoDataBoard.firstChild) {
       geoDataBoard.firstChild.remove()
+    }
+
+    // Spinner add
+    if (this.isSpinnerOn) {
+      geoDataBoard.append(this.addSpinner())
     }
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
@@ -138,12 +156,22 @@ class DisplayData {
       }
 
       geoDataBoard.classList.add('card', 'border', 'border-dark')
+
+      // Spinner remove
+      if (this.isSpinnerOn) {
+        geoDataBoard.firstChild.remove()
+      }
+
       geoDataBoard.append(divTitleRow, this.carouselContents(objArr, 'carouselContentControl', 'text'))
       this.hideAndShow(geoDataBoard)
     } else {
       var originStr = 'No earthquake!'
       var divRow1 = this.makeRow('Result', originStr)
       geoDataBoard.classList.add('card', 'border', 'border-dark')
+      // Spinner remove
+      if (this.isSpinnerOn) {
+        geoDataBoard.firstChild.remove()
+      }
       geoDataBoard.append(divTitleRow, divRow1)
       this.hideAndShow(geoDataBoard)
     }
@@ -156,6 +184,11 @@ class DisplayData {
       imgBoard.firstChild.remove()
       this.active = 0
       this.imgArr = []
+    }
+
+    // Spinner add
+    if (this.isSpinnerOn) {
+      imgBoard.append(this.addSpinner())
     }
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
@@ -172,6 +205,11 @@ class DisplayData {
       for(var i=0;i<data.hits.length;i++) {
         this.imgArr.push(data.hits[i].webformatURL)
       }
+      // Spinner remove
+      if (this.isSpinnerOn) {
+        imgBoard.firstChild.remove()
+      }
+
       imgBoard.append(divTitleRow, this.carouselContents(this.imgArr, 'carouselImageControl', 'img', false))
       this.hideAndShow(imgBoard)
 
@@ -180,6 +218,10 @@ class DisplayData {
       var text = 'Failed to find relevant images'
       var divTextCol = this.makeElement('div', 'col', 'card-text', '', text)
       divTextRow.append(divTextCol)
+      // Spinner remove
+      if (this.isSpinnerOn) {
+        imgBoard.firstChild.remove()
+      }
       imgBoard.append(divTitleRow, divTextRow)
       this.hideAndShow(imgBoard)
     }
@@ -190,6 +232,11 @@ class DisplayData {
 
     while (mapDataBoard.firstChild) {
       mapDataBoard.firstChild.remove()
+    }
+
+    // Spinner add
+    if (this.isSpinnerOn) {
+      mapDataBoard.append(this.addSpinner())
     }
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
@@ -207,6 +254,10 @@ class DisplayData {
     divMapDataIFrame.src = src
     divMapDataCol.append(divMapDataIFrame)
     divMapDataRow.append(divMapDataCol)
+    // Spinner remove
+    if (this.isSpinnerOn) {
+      mapDataBoard.firstChild.remove()
+    }
     mapDataBoard.append(divTitleRow, divMapDataRow)
     this.hideAndShow(mapDataBoard)
   }
@@ -365,6 +416,12 @@ class DisplayData {
     modal.append(modalDiag)
 
     return modal
+  }
+
+  addSpinner() {
+    var div = this.makeElement('div', 'spinner-border', 'text-info', 'loading-custom', '')
+    div.setAttribute('role', 'status')
+    return div
   }
 
   switchDateFormatToPST(date) {
