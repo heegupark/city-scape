@@ -53,6 +53,20 @@ main {
   color: white;
 }
 
+.city-h1 > a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.city-h1 > a:hover {
+  color: skyblue;
+}
+
+.loading-custom {
+  margin-left: 50%;
+}
+
 .city-p {
   color: gold;
 }
