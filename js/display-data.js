@@ -4,6 +4,11 @@ class DisplayData {
     this.imgArr = []
     this.active = 0
     this.isSpinnerOn = true
+    this.cityBoard = document.getElementById('city-data-board')
+    this.weatherDataBoard = document.getElementById('weather-data-board')
+    this.geoDataBoard = document.getElementById('geo-data-board')
+    this.imgBoard = document.getElementById('img-data-board')
+    this.mapDataBoard = document.getElementById('map-data-board')
   }
 
   makeElement(elementStr, class1, class2, class3, text) {
@@ -54,12 +59,10 @@ class DisplayData {
   }
 
   displayCityName(data) {
-    var cityBoard = document.getElementById('city-data-board')
-
-    while (cityBoard.firstChild) {
-      cityBoard.firstChild.remove()
+    while (this.cityBoard.firstChild) {
+      this.cityBoard.firstChild.remove()
     }
-    console.log(data)
+
     if (data) {
       var cityName = data.name + '(' + data.sys.country + ')'
       var divTitleRow = this.makeElement('div', 'row', '', '', '')
@@ -74,23 +77,17 @@ class DisplayData {
       divCoordRow.append(divCoordLatCol, divCoordLonCol)
       divDescCol.append(divTimeRow, divCoordRow)
       divTitleRow.append(divTitleCol, divDescCol)
-      cityBoard.classList.add('card', 'border', 'border-dark')
+      this.cityBoard.classList.add('card', 'border', 'border-dark')
 
-      cityBoard.append(divTitleRow)
-      this.hideAndShow(cityBoard)
-      this.displayMap(data.name)
+      this.cityBoard.append(divTitleRow)
+      this.hideAndShow(this.cityBoard)
+      this.displayMap(data.name, data.sys.country)
     }
   }
 
   displayWeatherData(data, unitData) {
-    var weatherDataBoard = document.getElementById('weather-data-board')
-
-    while (weatherDataBoard.firstChild) {
-      weatherDataBoard.firstChild.remove()
-    }
-    // Spinner add
-    if (this.isSpinnerOn) {
-      weatherDataBoard.append(this.addSpinner())
+    while (this.weatherDataBoard.firstChild) {
+      this.weatherDataBoard.firstChild.remove()
     }
     var divTitleRow = this.makeElement('div', 'row', '', '', '')
 
@@ -110,38 +107,24 @@ class DisplayData {
 
       var weatherDesc = `${data.weather[0].main} - ${data.weather[0].description}`
       var divRow4 = this.makeRow('', weatherDesc, 'fas', 'fa-cloud')
-      weatherDataBoard.classList.add('card', 'border', 'border-dark')
+      this.weatherDataBoard.classList.add('card', 'border', 'border-dark')
 
-      // Spinner remove
-      if (this.isSpinnerOn) {
-        weatherDataBoard.firstChild.remove()
-      }
-      weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)
-      this.hideAndShow(weatherDataBoard)
+      this.weatherDataBoard.append(divTitleRow, divRow1, divRow2, divRow3, divRow4)
+      this.hideAndShow(this.weatherDataBoard)
     } else {
       this.clearAllFields()
 
       var modalBoard = document.getElementById('modal-data-board')
       var modalObj = this.displayInModal('error-modal', 'Error', 'Failed to load data. Please search different city.','')
-      // Spinner remove
-      if (this.isSpinnerOn) {
-        weatherDataBoard.firstChild.remove()
-      }
+
       modalBoard.append(modalObj)
       $("#error-modal").modal('show')
     }
   }
 
   displayGeoData(data) {
-    var geoDataBoard = document.getElementById('geo-data-board')
-
-    while (geoDataBoard.firstChild) {
-      geoDataBoard.firstChild.remove()
-    }
-
-    // Spinner add
-    if (this.isSpinnerOn) {
-      geoDataBoard.append(this.addSpinner())
+    while (this.geoDataBoard.firstChild) {
+      this.geoDataBoard.firstChild.remove()
     }
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
@@ -167,40 +150,25 @@ class DisplayData {
         objArr.push(div)
       }
 
-      geoDataBoard.classList.add('card', 'border', 'border-dark')
+      this.geoDataBoard.classList.add('card', 'border', 'border-dark')
 
-      // Spinner remove
-      if (this.isSpinnerOn) {
-        geoDataBoard.firstChild.remove()
-      }
-
-      geoDataBoard.append(divTitleRow, this.carouselContents(objArr, 'carouselContentControl', 'text'))
-      this.hideAndShow(geoDataBoard)
+      this.geoDataBoard.append(divTitleRow, this.carouselContents(objArr, 'carouselContentControl', 'text'))
+      this.hideAndShow(this.geoDataBoard)
     } else {
       var originStr = 'No earthquake!'
       var divRow1 = this.makeRow('Result', originStr)
-      geoDataBoard.classList.add('card', 'border', 'border-dark')
-      // Spinner remove
-      if (this.isSpinnerOn) {
-        geoDataBoard.firstChild.remove()
-      }
-      geoDataBoard.append(divTitleRow, divRow1)
-      this.hideAndShow(geoDataBoard)
+      this.geoDataBoard.classList.add('card', 'border', 'border-dark')
+
+      this.geoDataBoard.append(divTitleRow, divRow1)
+      this.hideAndShow(this.geoDataBoard)
     }
   }
 
   displayPixabayImage(data) {
-    var imgBoard = document.getElementById('img-data-board')
-
-    while (imgBoard.firstChild) {
-      imgBoard.firstChild.remove()
+    while (this.imgBoard.firstChild) {
+      this.imgBoard.firstChild.remove()
       this.active = 0
       this.imgArr = []
-    }
-
-    // Spinner add
-    if (this.isSpinnerOn) {
-      imgBoard.append(this.addSpinner())
     }
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
@@ -210,45 +178,34 @@ class DisplayData {
 
     divTitleRow.append(divTitleCol)
 
-    imgBoard.classList.add('card', 'border', 'border-dark')
+    this.imgBoard.classList.add('card', 'border', 'border-dark')
 
     if(data && data.total > 0) {
-      // var imgArr = []
       for(var i=0;i<data.hits.length;i++) {
         this.imgArr.push(data.hits[i].webformatURL)
       }
-      // Spinner remove
-      if (this.isSpinnerOn) {
-        imgBoard.firstChild.remove()
-      }
 
-      imgBoard.append(divTitleRow, this.carouselContents(this.imgArr, 'carouselImageControl', 'img', false))
-      this.hideAndShow(imgBoard)
+      var randomImg = Math.floor(Math.random() * data.hits.length)
+      document.body.style.backgroundImage = `url(${data.hits[randomImg].webformatURL})`
+      document.body.style.backgroundSize = 'cover'
+
+      this.imgBoard.append(divTitleRow, this.carouselContents(this.imgArr, 'carouselImageControl', 'img', false))
+      this.hideAndShow(this.imgBoard)
 
     } else {
       var divTextRow = this.makeElement('div', 'row', '', '', '', '', '')
       var text = 'Failed to find relevant images'
       var divTextCol = this.makeElement('div', 'col', 'card-text', '', text)
       divTextRow.append(divTextCol)
-      // Spinner remove
-      if (this.isSpinnerOn) {
-        imgBoard.firstChild.remove()
-      }
-      imgBoard.append(divTitleRow, divTextRow)
-      this.hideAndShow(imgBoard)
+
+      this.imgBoard.append(divTitleRow, divTextRow)
+      this.hideAndShow(this.imgBoard)
     }
   }
 
-  displayMap(cityName) {
-    var mapDataBoard = document.getElementById('map-data-board')
-
-    while (mapDataBoard.firstChild) {
-      mapDataBoard.firstChild.remove()
-    }
-
-    // Spinner add
-    if (this.isSpinnerOn) {
-      mapDataBoard.append(this.addSpinner())
+  displayMap(cityName, countryName) {
+    while (this.mapDataBoard.firstChild) {
+      this.mapDataBoard.firstChild.remove()
     }
 
     var divTitleRow = this.makeElement('div', 'row', '', '', '', '', '')
@@ -257,21 +214,18 @@ class DisplayData {
     var divTitleCol = this.makeElement('div', 'col', 'title', 'map-img', mapTitle)
 
     divTitleRow.append(divTitleCol)
-    mapDataBoard.classList.add('card', 'border', 'border-dark')
+    this.mapDataBoard.classList.add('card', 'border', 'border-dark')
 
     var divMapDataRow = this.makeElement('div', 'row', '', '', '', '', '')
     var divMapDataCol = this.makeElement('div', 'col', '', '', '')
     var divMapDataIFrame = this.makeElement('iframe', 'map', '', '', '')
-    var src = 'https://www.google.com/maps/embed/v1/place?key=' + GOOGLE_MAP_API_KEY + '&q=' + cityName
+    var src = `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAP_API_KEY}&q=${cityName},${countryName}`
     divMapDataIFrame.src = src
     divMapDataCol.append(divMapDataIFrame)
     divMapDataRow.append(divMapDataCol)
-    // Spinner remove
-    if (this.isSpinnerOn) {
-      mapDataBoard.firstChild.remove()
-    }
-    mapDataBoard.append(divTitleRow, divMapDataRow)
-    this.hideAndShow(mapDataBoard)
+
+    this.mapDataBoard.append(divTitleRow, divMapDataRow)
+    this.hideAndShow(this.mapDataBoard)
   }
 
   carouselContents(arr, id, category, isModal) {
@@ -431,9 +385,12 @@ class DisplayData {
   }
 
   addSpinner() {
-    var div = this.makeElement('div', 'spinner-border', 'text-info', 'loading-custom', '')
-    div.setAttribute('role', 'status')
-    return div
+    this.clearAllFields()
+    this.cityBoard.append(this.makeElement('div', 'spinner-border', 'text-info', 'loading-custom-row0', ''))
+    this.weatherDataBoard.append(this.makeElement('div', 'spinner-border', 'text-info', 'loading-custom-row1', ''))
+    this.geoDataBoard.append(this.makeElement('div', 'spinner-border', 'text-info', 'loading-custom-row1', ''))
+    this.imgBoard.append(this.makeElement('div', 'spinner-border', 'text-info', 'loading-custom-row2', ''))
+    this.mapDataBoard.append(this.makeElement('div', 'spinner-border', 'text-info', 'loading-custom-row2', ''))
   }
 
   switchDateFormatToPST(date) {
@@ -461,32 +418,27 @@ class DisplayData {
   clearAllFields() {
     this.active = 0
     this.imgArr = []
-    var cityBoard = document.getElementById('city-data-board')
-    var weatherDataBoard = document.getElementById('weather-data-board')
-    var geoDataBoard = document.getElementById('geo-data-board')
-    var imgBoard = document.getElementById('img-data-board')
-    var mapDataBoard = document.getElementById('map-data-board')
 
-    this.removeClasses(cityBoard)
-    this.removeClasses(weatherDataBoard)
-    this.removeClasses(geoDataBoard)
-    this.removeClasses(imgBoard)
-    this.removeClasses(mapDataBoard)
+    this.removeClasses(this.cityBoard)
+    this.removeClasses(this.weatherDataBoard)
+    this.removeClasses(this.geoDataBoard)
+    this.removeClasses(this.imgBoard)
+    this.removeClasses(this.mapDataBoard)
 
-    while (cityBoard.firstChild) {
-      cityBoard.firstChild.remove()
+    while (this.cityBoard.firstChild) {
+      this.cityBoard.firstChild.remove()
     }
-    while (weatherDataBoard.firstChild) {
-      weatherDataBoard.firstChild.remove()
+    while (this.weatherDataBoard.firstChild) {
+      this.weatherDataBoard.firstChild.remove()
     }
-    while (geoDataBoard.firstChild) {
-      geoDataBoard.firstChild.remove()
+    while (this.geoDataBoard.firstChild) {
+      this.geoDataBoard.firstChild.remove()
     }
-    while (imgBoard.firstChild) {
-      imgBoard.firstChild.remove()
+    while (this.imgBoard.firstChild) {
+      this.imgBoard.firstChild.remove()
     }
-    while (mapDataBoard.firstChild) {
-      mapDataBoard.firstChild.remove()
+    while (this.mapDataBoard.firstChild) {
+      this.mapDataBoard.firstChild.remove()
     }
   }
 

@@ -119,6 +119,7 @@ class App {
     this.unitData = unitData
     this.radiusData = radiusData
     this.periodData = periodData
+    this.displayData.addSpinner()
     this.getAllData(cityInput)
   }
 }

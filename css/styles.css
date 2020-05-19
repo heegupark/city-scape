@@ -56,6 +56,7 @@ main {
 .city-h1 > a {
   color: white;
   text-decoration: none;
+  text-shadow: 1px 1px black;
   cursor: pointer;
 }
 
@@ -63,12 +64,24 @@ main {
   color: skyblue;
 }
 
-.loading-custom {
-  margin-left: 50%;
+.loading-custom-row0 {
+  margin-left: 48%;
+  margin-top: 3%;
+}
+
+.loading-custom-row1 {
+  margin-left: 48%;
+  margin-top: 25%;
+}
+
+.loading-custom-row2 {
+  margin-left: 48%;
+  margin-top: 50%;
 }
 
 .city-p {
   color: gold;
+  text-shadow: 1px 1px black;
 }
 
 .city-name {
@@ -214,6 +227,18 @@ p {
 
   .body-msg {
     font-size: 18px;
+  }
+
+  .loading-custom-row0 {
+    margin-top: 20%;
+  }
+
+  .loading-custom-row1 {
+    margin-top: 40%;
+  }
+
+  .loading-custom-row2 {
+    margin-top: 60%;
   }
 
   main {
