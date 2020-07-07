@@ -1,4 +1,4 @@
-# City-evrything
+# City-scape
 
 > - Maintained by: `Heegu Park`
 
@@ -37,12 +37,12 @@
 ## Screen shot
 [Desktop - Chrome browser]
 
-![City-verything](https://github.com/heegupark/api-hackathon/blob/master/city-ss-001.gif)
+![City-scape](https://github.com/heegupark/api-hackathon/blob/master/city-ss-001.gif)
 
 [iPhone 6/7/8 - Portrait]
 
-![City-verything](https://github.com/heegupark/api-hackathon/blob/master/city-ss-002.gif)
+![City-scape](https://github.com/heegupark/api-hackathon/blob/master/city-ss-002.gif)
 
 [iPhone 6/7/8 - Landscape]
 
-![City-verything](https://github.com/heegupark/api-hackathon/blob/master/city-ss-003.gif)
+![City-scape](https://github.com/heegupark/api-hackathon/blob/master/city-ss-003.gif)
