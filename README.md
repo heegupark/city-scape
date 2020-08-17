@@ -37,12 +37,12 @@
 ## Screen shot
 [Desktop - Chrome browser]
 
-![City-scape](https://github.com/heegupark/api-hackathon/blob/master/city-ss-001.gif)
+![City-scape](https://github.com/heegupark/city-scape/blob/master/city-ss-001.gif)
 
 [iPhone 6/7/8 - Portrait]
 
-![City-scape](https://github.com/heegupark/api-hackathon/blob/master/city-ss-002.gif)
+![City-scape](https://github.com/heegupark/city-scape/blob/master/city-ss-002.gif)
 
 [iPhone 6/7/8 - Landscape]
 
-![City-scape](https://github.com/heegupark/api-hackathon/blob/master/city-ss-003.gif)
+![City-scape](https://github.com/heegupark/city-scape/blob/master/city-ss-003.gif)
